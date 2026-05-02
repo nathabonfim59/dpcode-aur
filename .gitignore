@@ -5,7 +5,7 @@ pkg/
 *.src.tar.*
 
 # downloaded upstream assets
-T3-Code-*.AppImage
+DP-Code-*.AppImage
 
 # CI metadata
 sha256sums.txt

@@ -1,14 +1,14 @@
-# Maintainer: anon
+# Maintainer: Nathanael Bonfim <dev@nathabonfim59.com>
 
-pkgname=t3code-bin
-pkgver=0.0.21
+pkgname=dpcode-bin
+pkgver=0.0.40
 pkgrel=1
-pkgdesc='T3 Code desktop app packaged from the upstream AppImage'
+pkgdesc='DP Code desktop app packaged from the upstream AppImage'
 arch=('x86_64')
-_upstream_tag='v0.0.21'
-_upstream_version='0.0.21'
-_appimage_name="T3-Code-${_upstream_version}-x86_64.AppImage"
-url='https://t3.codes'
+_upstream_tag='v0.0.40'
+_upstream_version='0.0.40'
+_appimage_name="DP-Code-${_upstream_version}-x86_64.AppImage"
+url='https://dpcode.cc'
 license=('MIT')
 depends=(
   'alsa-lib'
@@ -42,17 +42,17 @@ depends=(
 optdepends=(
   'openai-codex: use the system-installed Codex CLI'
 )
-provides=("t3code=${pkgver}")
-conflicts=('t3code')
+provides=("dpcode=${pkgver}")
+conflicts=('dpcode')
 options=('!debug' '!emptydirs' '!strip')
 source=(
-  "${_appimage_name}::https://github.com/pingdotgg/t3code/releases/download/${_upstream_tag}/${_appimage_name}"
-  't3code-icon.png'
+  "${_appimage_name}::https://github.com/Emanuele-web04/dpcode/releases/download/${_upstream_tag}/${_appimage_name}"
+  'dpcode-icon.png'
   'LICENSE'
 )
 sha256sums=(
-  '79009fb24a65f8924ec9a618ee88180a2d190ae58d45c129b1e58c9e24bf2c24'
-  '52c86008b11f90f36b8a8f4cc43b1352d5fda9084c6e5691b806f5bca1a968b6'
+  '75aa5a8a139f0a6ef698c46a7465bba42e1d45e21a1746915980e21df56534e9'
+  '9fada842a88c3b1a503ee45756f781b7d32b39cc97579f4f1e880bb28606e728'
   '935d8f2af0c703f9c39517ee57cc4930b19d02d533be930b63f0e82f93614b43'
 )
 
@@ -71,14 +71,13 @@ package() {
   install -d "$pkgdir/opt/$pkgname"
   cp -a "$srcdir/squashfs-root/." "$pkgdir/opt/$pkgname/"
 
-  # Preserve upstream execute bits while ensuring the payload stays readable.
   chmod -R a+rX "$pkgdir/opt/$pkgname"
 
-  install -Dm755 /dev/stdin "$pkgdir/usr/bin/t3code" << 'EOF'
+  install -Dm755 /dev/stdin "$pkgdir/usr/bin/dpcode" << 'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 
-appdir='/opt/t3code-bin'
+appdir='/opt/dpcode-bin'
 export APPDIR="$appdir"
 
 if [[ -z "${CODEX_CLI_PATH-}" ]] && command -v codex >/dev/null 2>&1; then
@@ -96,28 +95,23 @@ else
   extra_flags+=(--ozone-platform-hint=auto)
 fi
 
-exec "$appdir/t3code" --no-sandbox "${extra_flags[@]}" "$@"
+exec "$appdir/dpcode" --no-sandbox "${extra_flags[@]}" "$@"
 EOF
 
-  ln -s t3code "$pkgdir/usr/bin/t3-code-desktop"
+  install -Dm644 "$srcdir/dpcode-icon.png" \
+    "$pkgdir/usr/share/icons/hicolor/1024x1024/apps/dpcode.png"
+  install -Dm644 "$srcdir/dpcode-icon.png" \
+    "$pkgdir/usr/share/pixmaps/dpcode.png"
 
-  install -Dm644 "$srcdir/t3code-icon.png" \
-    "$pkgdir/usr/share/icons/hicolor/1024x1024/apps/t3code.png"
-  ln -s t3code.png \
-    "$pkgdir/usr/share/icons/hicolor/1024x1024/apps/t3-code-desktop.png"
-  install -Dm644 "$srcdir/t3code-icon.png" \
-    "$pkgdir/usr/share/pixmaps/t3code.png"
-  ln -s t3code.png "$pkgdir/usr/share/pixmaps/t3-code-desktop.png"
-
-  install -Dm644 /dev/stdin "$pkgdir/usr/share/applications/t3code.desktop" << 'EOF'
+  install -Dm644 /dev/stdin "$pkgdir/usr/share/applications/dpcode.desktop" << 'EOF'
 [Desktop Entry]
-Name=T3 Code
-Comment=T3 Code desktop build
-Exec=t3code %U
+Name=DP Code
+Comment=DP Code desktop build
+Exec=dpcode %U
 Terminal=false
 Type=Application
-Icon=t3code
-StartupWMClass=t3code
+Icon=dpcode
+StartupWMClass=dpcode
 Categories=Development;
 EOF
 

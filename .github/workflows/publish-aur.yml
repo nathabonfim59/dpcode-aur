@@ -1,4 +1,4 @@
-name: Publish t3code packages to AUR
+name: Publish dpcode packages to AUR
 
 on:
   push:
@@ -18,9 +18,9 @@ permissions:
   contents: write
 
 env:
-  UPSTREAM_REPO: ${{ vars.UPSTREAM_REPO || 'pingdotgg/t3code' }}
-  AUR_COMMIT_NAME: ${{ vars.AUR_COMMIT_NAME || 't3code-ci' }}
-  AUR_COMMIT_EMAIL: ${{ vars.AUR_COMMIT_EMAIL || 't3code-ci@users.noreply.github.com' }}
+  UPSTREAM_REPO: ${{ vars.UPSTREAM_REPO || 'Emanuele-web04/dpcode' }}
+  AUR_COMMIT_NAME: ${{ vars.AUR_COMMIT_NAME || 'Nathanael Bonfim' }}
+  AUR_COMMIT_EMAIL: ${{ vars.AUR_COMMIT_EMAIL || 'dev@nathabonfim59.com' }}
 
 jobs:
   publish:
@@ -31,28 +31,17 @@ jobs:
       max-parallel: 1
       matrix:
         package:
-          - name: t3code-bin
+          - name: dpcode-bin
             package_dir: .
             pkgbuild_path: PKGBUILD
             srcinfo_path: .SRCINFO
             state_file: upstream.sha256
-            aur_git_url: ssh://aur@aur.archlinux.org/t3code-bin.git
-            aur_payload_files: PKGBUILD .SRCINFO LICENSE t3code-icon.png
+            aur_git_url: ssh://aur@aur.archlinux.org/dpcode-bin.git
+            aur_payload_files: PKGBUILD .SRCINFO LICENSE dpcode-icon.png
             release_prerelease: 'false'
             release_tag_regex: '^v'
             release_version_prefix: 'v'
-            asset_regex: '^T3-Code-.*-x86_64\.AppImage$'
-          - name: t3code-nightly-bin
-            package_dir: packages/t3code-nightly-bin
-            pkgbuild_path: packages/t3code-nightly-bin/PKGBUILD
-            srcinfo_path: packages/t3code-nightly-bin/.SRCINFO
-            state_file: packages/t3code-nightly-bin/upstream.sha256
-            aur_git_url: ssh://aur@aur.archlinux.org/t3code-nightly-bin.git
-            aur_payload_files: packages/t3code-nightly-bin/PKGBUILD packages/t3code-nightly-bin/.SRCINFO LICENSE t3code-icon.png
-            release_prerelease: 'true'
-            release_tag_regex: '^nightly-v'
-            release_version_prefix: 'nightly-v'
-            asset_regex: '^T3-Code-.*-x86_64\.AppImage$'
+            asset_regex: '^DP-Code-.*-x86_64\.AppImage$'
     defaults:
       run:
         shell: bash
@@ -79,7 +68,7 @@ jobs:
           test -f "${{ matrix.package.pkgbuild_path }}"
           test -f "${{ matrix.package.srcinfo_path }}"
           test -f LICENSE
-          test -f t3code-icon.png
+          test -f dpcode-icon.png
           test -x scripts/check_upstream.sh
           test -x scripts/stage_shared_assets.sh
           test -x scripts/update_pkgbuild.sh

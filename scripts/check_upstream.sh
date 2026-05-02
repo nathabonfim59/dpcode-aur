@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-UPSTREAM_REPO="${UPSTREAM_REPO:-pingdotgg/t3code}"
+UPSTREAM_REPO="${UPSTREAM_REPO:-Emanuele-web04/dpcode}"
 STATE_FILE="${STATE_FILE:-upstream.sha256}"
 RELEASE_TAG_REGEX="${RELEASE_TAG_REGEX:-^v}"
 RELEASE_PRERELEASE="${RELEASE_PRERELEASE:-false}"
 RELEASE_VERSION_PREFIX="${RELEASE_VERSION_PREFIX:-v}"
-ASSET_REGEX="${ASSET_REGEX:-^T3-Code-.*-x86_64\.AppImage$}"
+ASSET_REGEX="${ASSET_REGEX:-^DP-Code-.*-x86_64\.AppImage$}"
 out_file="${GITHUB_OUTPUT:-}"
 
 releases_json="$(gh api "repos/$UPSTREAM_REPO/releases?per_page=100")"

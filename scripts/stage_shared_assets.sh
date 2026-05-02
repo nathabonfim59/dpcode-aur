@@ -3,7 +3,7 @@ set -euo pipefail
 
 WORKSPACE_ROOT="${WORKSPACE_ROOT:-$(pwd)}"
 PACKAGE_DIR="${PACKAGE_DIR:-.}"
-SHARED_FILES="${SHARED_FILES:-LICENSE t3code-icon.png}"
+SHARED_FILES="${SHARED_FILES:-LICENSE dpcode-icon.png}"
 
 package_dir_abs="$(cd "$PACKAGE_DIR" && pwd)"
 workspace_root_abs="$(cd "$WORKSPACE_ROOT" && pwd)"

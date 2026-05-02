@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-AUR_GIT_URL="${AUR_GIT_URL:-ssh://aur@aur.archlinux.org/t3code-bin.git}"
+AUR_GIT_URL="${AUR_GIT_URL:-ssh://aur@aur.archlinux.org/dpcode-bin.git}"
 AUR_BRANCH="${AUR_BRANCH:-master}"
-AUR_COMMIT_NAME="${AUR_COMMIT_NAME:-t3code-ci}"
-AUR_COMMIT_EMAIL="${AUR_COMMIT_EMAIL:-t3code-ci@users.noreply.github.com}"
-AUR_PAYLOAD_FILES="${AUR_PAYLOAD_FILES:-PKGBUILD .SRCINFO LICENSE t3code-icon.png}"
+AUR_COMMIT_NAME="${AUR_COMMIT_NAME:-Nathanael Bonfim}"
+AUR_COMMIT_EMAIL="${AUR_COMMIT_EMAIL:-dev@nathabonfim59.com}"
+AUR_PAYLOAD_FILES="${AUR_PAYLOAD_FILES:-PKGBUILD .SRCINFO LICENSE dpcode-icon.png}"
 DRY_RUN="${DRY_RUN:-false}"
 
 if [[ "$DRY_RUN" != "true" && -z "${AUR_SSH_PRIVATE_KEY:-}" ]]; then
